@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .dot {
+        width: 8px;
+        height: 8px;
+      }
+      .card-item {
+        min-height: 80px;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body class="sm:bg-gray-100 bg-white p-4 min-h-screen flex items-center justify-center">
+  <div id="app" class="w-full max-w-sm mx-auto">
+    
+    <!-- Screen 1: Admin Dashboard -->
+    <div id="screen1" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6">
+      <h2 class="text-3xl font-bold mb-8 text-center">Hi, Admin!</h2>
+
+        <div class="bg-gray-200 aspect-square rounded-lg mb-7 flex items-center justify-center">
+            <!-- <svg class="w-24 h-24 text-gray-400" viewBox="0 0 100 100">
+                <line x1="10" y1="10" x2="90" y2="90" stroke="currentColor" stroke-width="2"/>
+                <line x1="90" y1="10" x2="10" y2="90" stroke="currentColor" stroke-width="2"/>
+            </svg> -->
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Left Column -->
+            <div class="space-y-4 text-[13px]">
+                <button onclick="showScreen(2)" class="card-item w-full border-2 border-gray-300 rounded-xl text-left font-semibold hover:bg-gray-50 flex items-center">
+                    Reservasi
+                </button>
+                <button onclick="showScreen(7)" class="card-item w-full border-2 border-gray-300 rounded-xl text-left font-semibold hover:bg-gray-50 flex items-center">
+                    Acara
+                </button>
+                <button onclick="showScreen(10)" class="card-item w-full border-2 border-gray-300 rounded-xl text-left font-semibold hover:bg-gray-50 flex items-center">
+                    Riwayat Pembayaran
+                </button>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-4 text-[13px]">
+                <button onclick="showScreen(8)" class="border-2 border-gray-300 rounded-xl text-left font-semibold hover:bg-gray-50 flex items-center" style="min-height: 176px; padding: 14px;">
+                    Kalender Lihat Jadwal
+                </button>
+                <button onclick="showScreen(3)" class="card-item w-full border-2 border-gray-300 rounded-xl text-left font-semibold hover:bg-gray-50 flex items-center">
+                    Akun Penyewa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 2: Admin Reservations -->
+    <div id="screen2" class="sm:bg-white sm:rounded-3xl text-center sm:shadow-lg p-6 hidden">
+      <div class="flex items-center absolute top-4">
+        <button onclick="showScreen(1)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold mx-auto">Reservasi</h2>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 mb-6 text-left">
+        <div class="card-item w-full border-2 border-gray-300 rounded-xl text-right font-semibold hover:bg-gray-50 p-4">
+            <div class="block">1</div>
+            <div class="block nowrap">Belum Bayar</div>
+        </div>
+        <div class="card-item w-full border-2 border-gray-300 rounded-xl text-right font-semibold hover:bg-gray-50 p-4">
+            <div class="block">1</div>
+            <div class="block">Sudah DP</div>
+        </div>
+        <div class="card-item w-full border-2 border-gray-300 rounded-xl text-right font-semibold hover:bg-gray-50 p-4">
+            <div class="block">2</div>
+            <div class="block">Lunas</div>
+        </div>
+      </div>
+
+      <div class="border-2 border-gray-300 rounded-lg overflow-hidden mb-4">
+        <table class="w-full text-xs">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="p-3 text-left">Rsv</th>
+              <th class="p-3 text-left">Acara</th>
+              <th class="p-3 text-left">Status</th>
+              <th class="p-3 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">1/1/26</td>
+              <td class="p-3">1/2/26</td>
+              <td class="p-3">Belum DP</td>
+              <td class="p-3"><a href="#" onclick="showScreen(5)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">1/11/25</td>
+              <td class="p-3">1/12/26</td>
+              <td class="p-3">Sudah DP</td>
+              <td class="p-3"><a href="#" onclick="showScreen(5)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">1/11/25</td>
+              <td class="p-3">1/11/25</td>
+              <td class="p-3">Lunas</td>
+              <td class="p-3"><a href="#" onclick="showScreen(5)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">1/10/25</td>
+              <td class="p-3">1/11/25</td>
+              <td class="p-3">Lunas</td>
+              <td class="p-3"><a href="#" onclick="showScreen(5)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Screen 3: Admin Renters List (Penyewa) -->
+    <div id="screen3" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center mb-6 absolute top-4">
+        <button onclick="showScreen(1)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold">Penyewa</h2>
+      </div>
+
+      <div class="border-2 border-gray-300 rounded-lg overflow-hidden mb-4">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="p-3 text-left">No</th>
+              <th class="p-3 text-left">Nama</th>
+              <th class="p-3 text-left">No. HP</th>
+              <th class="p-3 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">1</td>
+              <td class="p-3">John</td>
+              <td class="p-3">62811111</td>
+              <td class="p-3"><a href="#" onclick="showScreen(4)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">2</td>
+              <td class="p-3">Jane</td>
+              <td class="p-3">62856234</td>
+              <td class="p-3"><a href="#" onclick="showScreen(4)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">3</td>
+              <td class="p-3">Joe</td>
+              <td class="p-3">62856356</td>
+              <td class="p-3"><a href="#" onclick="showScreen(4)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">4</td>
+              <td class="p-3">Josh</td>
+              <td class="p-3">62857789</td>
+              <td class="p-3"><a href="#" onclick="showScreen(4)" class="text-blue-600 underline">Edit</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Screen 4: Admin Edit Renter -->
+    <div id="screen4" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center absolute top-4">
+          <button onclick="showScreen(3)" class="mr-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <h2 class="text-2xl font-bold">Edit<br>Penyewa</h2>
+        </div>
+        <button onclick="confirmDelete()">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">Nama Penyewa</label>
+          <input type="text" value="John Doe" class="w-full border-2 border-gray-300 rounded-lg px-4 py-3">
+        </div>
+
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">No. HP</label>
+          <input type="text" value="62811111" class="w-full border-2 border-gray-300 rounded-lg px-4 py-3">
+        </div>
+
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">Password Baru</label>
+          <input type="password" class="w-full border-2 border-gray-300 rounded-lg px-4 py-3">
+        </div>
+      </div>
+
+      <button onclick="showScreen(3)" class="w-full bg-black text-white py-3 rounded-full font-semibold">
+        Simpan
+      </button>
+    </div>
+
+    <!-- Screen 5: Admin Edit Reservation -->
+    <div id="screen5" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center mb-6">
+        <button onclick="showScreen(2)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold">Edit Reservasi</h2>
+      </div>
+
+      <div class="flex gap-0 mb-6 border-2 border-gray-300 rounded-lg overflow-hidden">
+        <button class="flex-1 px-4 py-3 bg-gray-200 text-sm font-semibold border-r-2">Reservasi</button>
+        <button onclick="showScreen(6)" class="flex-1 px-4 py-3 bg-white text-sm">Pembayaran</button>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">Nama Penyewa</label>
+          <input type="text" value="John Doe" class="w-full border-2 border-gray-300 rounded-lg px-4 py-3">
+        </div>
+
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">No. HP</label>
+          <input type="text" value="62811111" class="w-full border-2 border-gray-300 rounded-lg px-4 py-3">
+        </div>
+
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">Tanggal Reservasi</label>
+          <input type="text" value="1/1/2025" class="w-full border-2 border-gray-300 rounded-lg px-4 py-3">
+        </div>
+
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">Tanggal Acara</label>
+          <input type="text" value="1/2/2025" class="w-full border-2 border-gray-300 rounded-lg px-4 py-3">
+        </div>
+
+        <div>
+          <label class="text-sm text-gray-600 mb-1 block">Diskon</label>
+          <select class="w-full border-2 border-gray-300 rounded-lg px-4 py-3 bg-white">
+            <option>0%</option>
+            <option>15%</option>
+            <option>25%</option>
+            <option>50%</option>
+            <option>75%</option>
+          </select>
+        </div>
+      </div>
+
+      <button onclick="showScreen(2)" class="w-full bg-black text-white py-3 rounded-full font-semibold">
+        Simpan
+      </button>
+    </div>
+
+    <!-- Screen 6: Admin Edit Payment -->
+    <div id="screen6" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center mb-6 absolute top-7">
+        <button onclick="showScreen(5)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold">Edit Reservasi</h2>
+      </div>
+
+      <div class="flex gap-0 mb-6 border-2 border-gray-300 rounded-lg overflow-hidden">
+        <button onclick="showScreen(5)" class="flex-1 px-4 py-3 bg-white text-sm border-r-2">Reservasi</button>
+        <button class="flex-1 px-4 py-3 bg-gray-200 text-sm font-semibold">Pembayaran</button>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div class="card-item border-2 border-gray-300 rounded-lg">
+          <div class="flex items-center justify-between mb-3">
+            <label class="flex items-center">
+              <input type="checkbox" checked class="mr-3 w-5 h-5">
+              <span class="font-bold text-lg">DP</span>
+            </label>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <div class="text-right text-xl font-bold mb-2">3.900.000</div>
+          <button class="text-blue-600 text-sm underline flex items-center ml-auto">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            Unduh Bukti
+          </button>
+        </div>
+
+        <div class="card-item border-2 border-gray-300 rounded-lg">
+          <div class="flex items-center justify-between mb-3">
+            <label class="flex items-center">
+              <input type="checkbox" class="mr-3 w-5 h-5">
+              <span class="font-bold text-lg">Sisa</span>
+            </label>
+            <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </div>
+          <div class="text-right text-xl font-bold mb-2">9.100.000</div>
+          <button class="text-blue-600 text-sm underline flex items-center ml-auto">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+            </svg>
+            Unggah Bukti
+          </button>
+        </div>
+      </div>
+
+      <button onclick="showScreen(2)" class="w-full bg-black text-white py-3 rounded-full font-semibold mb-3">
+        Simpan
+      </button>
+
+      <button onclick="showScreen(2)" class="w-full bg-white border-2 border-black text-black py-3 rounded-full font-semibold">
+        Batalkan Reservasi
+      </button>
+    </div>
+
+    <!-- Screen 7: Admin Events (Acara) -->
+    <div id="screen7" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center mb-6 absolute top-4">
+        <button onclick="showScreen(1)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold">Acara</h2>
+      </div>
+
+    <div class="grid grid-cols-2 gap-2 mb-6 text-left">
+        <div class="card-item w-full border-2 border-gray-300 rounded-xl text-right font-semibold hover:bg-gray-50 p-4">
+            <div class="block">2</div>
+            <div class="block">Sudah</div>
+        </div>
+        <div class="card-item w-full border-2 border-gray-300 rounded-xl text-right font-semibold hover:bg-gray-50 p-4">
+            <div class="block">3</div>
+            <div class="block">Belum</div>
+        </div>
+    </div>
+
+      <div class="border-2 border-gray-300 rounded-lg overflow-hidden mb-4">
+        <table class="w-full text-xs">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="p-3 text-left">No</th>
+              <th class="p-3 text-left">Tgl A</th>
+              <th class="p-3 text-left">Penyewa</th>
+              <th class="p-3 text-left">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">1</td>
+              <td class="p-3">1/2/26</td>
+              <td class="p-3">John</td>
+              <td class="p-3">Belum</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">2</td>
+              <td class="p-3">1/11/25</td>
+              <td class="p-3">Jane</td>
+              <td class="p-3">Sudah</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">3</td>
+              <td class="p-3">1/11/25</td>
+              <td class="p-3">Joe</td>
+              <td class="p-3">Sudah</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">4</td>
+              <td class="p-3">1/10/25</td>
+              <td class="p-3">Josh</td>
+              <td class="p-3">Sudah</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Screen 8: Admin Calendar -->
+    <div id="screen8" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center mb-6 absolute top-4">
+        <button onclick="showScreen(1)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold">Kalender</h2>
+      </div>
+      
+      <div class="bg-gray-200 border-2 border-gray-300 rounded-lg p-4 mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <button class="text-xl">&lt;</button>
+          <span class="font-bold text-lg">Des 2025</span>
+          <button class="text-xl">&gt;</button>
+        </div>
+        
+        <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2">
+          <div class="font-bold">Su</div>
+          <div class="font-bold">Mo</div>
+          <div class="font-bold">Tu</div>
+          <div class="font-bold">We</div>
+          <div class="font-bold">Th</div>
+          <div class="font-bold">Fr</div>
+          <div class="font-bold">Sa</div>
+        </div>
+        
+        <div class="grid grid-cols-7 gap-1 text-center text-sm">
+          <div></div>
+          <div class="p-2">1</div>
+          <div class="p-2">2</div>
+          <div class="p-2">3</div>
+          <div class="p-2">4</div>
+          <div class="p-2">5</div>
+          <div class="p-2">6</div>
+          <div class="p-2">7</div>
+          <div class="p-2">8</div>
+          <div class="p-2">9</div>
+          <div class="p-2">10</div>
+          <div class="p-2">11</div>
+          <div class="p-2">12</div>
+          <div class="p-2">13</div>
+          <div class="border-2 border-red-500 rounded p-2">14</div>
+          <div class="border-2 border-red-500 rounded p-2">15</div>
+          <div class="p-2">16</div>
+          <div class="p-2">17</div>
+          <div class="p-2">18</div>
+          <div class="p-2">19</div>
+          <div class="p-2">20</div>
+          <div class="border-2 border-red-500 rounded p-2">21</div>
+          <div class="border-2 border-red-500 rounded p-2">22</div>
+          <div class="p-2">23</div>
+          <div class="p-2">24</div>
+          <div class="p-2">25</div>
+          <div class="p-2">26</div>
+          <div class="p-2">27</div>
+          <div class="border-2 border-red-500 rounded p-2">28</div>
+          <div class="border-2 border-red-500 rounded p-2">29</div>
+          <div class="p-2">30</div>
+          <div class="p-2">31</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen 9: Admin Payment History Detail -->
+    <div id="screen9" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center mb-6 absolute top-4">
+        <button onclick="showScreen(10)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold">Detail Pembayaran</h2>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div class="card-item border-2 border-gray-300 rounded-lg">
+          <div class="flex justify-between mb-2">
+            <span class="text-sm text-gray-600">Nama Penyewa</span>
+            <span class="text-sm font-semibold">John Doe</span>
+          </div>
+          <div class="flex justify-between mb-2">
+            <span class="text-sm text-gray-600">Tanggal Bayar</span>
+            <span class="text-sm font-semibold">1 Jan 2026</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-gray-600">Status</span>
+            <span class="text-sm font-semibold">DP</span>
+          </div>
+        </div>
+
+        <div class="card-item border-2 border-gray-300 rounded-lg">
+          <div class="flex justify-between mb-2">
+            <span class="text-sm text-gray-600">Jumlah DP</span>
+            <span class="text-sm font-bold">Rp 3.900.000</span>
+          </div>
+          <div class="flex justify-between mb-2">
+            <span class="text-sm text-gray-600">Sisa Pembayaran</span>
+            <span class="text-sm">Rp 9.100.000</span>
+          </div>
+          <div class="border-t pt-2 mt-2 flex justify-between">
+            <span class="text-sm font-bold">Total</span>
+            <span class="text-sm font-bold">Rp 13.000.000</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="w-full bg-white border-2 border-gray-300 rounded-lg py-4 font-semibold flex items-center justify-center gap-2 mb-3">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        Unduh Bukti Pembayaran
+      </button>
+
+      <button onclick="showScreen(10)" class="w-full bg-black text-white py-3 rounded-full font-semibold">
+        Kembali
+      </button>
+    </div>
+
+    <!-- Screen 10: Admin Payment List -->
+    <div id="screen10" class="sm:bg-white sm:rounded-3xl sm:shadow-lg p-6 hidden">
+      <div class="flex items-center mb-6 absolute top-4">
+        <button onclick="showScreen(1)" class="mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold">Pembayaran</h2>
+      </div>
+      
+      <div class="border-2 border-gray-300 rounded-lg overflow-hidden mb-6">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="p-3 text-left">No</th>
+              <th class="p-3 text-left">Nama</th>
+              <th class="p-3 text-left">Status</th>
+              <th class="p-3 text-left">Tgl</th>
+              <th class="p-3 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">1</td>
+              <td class="p-3">John</td>
+              <td class="p-3">DP</td>
+              <td class="p-3">1/1/26</td>
+              <td class="p-3">
+                <a href="#" onclick="showScreen(9)" class="text-blue-600 underline">Detail</a>
+              </td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">2</td>
+              <td class="p-3">Jane</td>
+              <td class="p-3">Lunas</td>
+              <td class="p-3">1/12/25</td>
+              <td class="p-3">
+                <a href="#" onclick="showScreen(9)" class="text-blue-600 underline">Detail</a>
+              </td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">3</td>
+              <td class="p-3">Jane</td>
+              <td class="p-3">Sudah DP</td>
+              <td class="p-3">1/11/25</td>
+              <td class="p-3">
+                <a href="#" onclick="showScreen(9)" class="text-blue-600 underline">Detail</a>
+              </td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-3">4</td>
+              <td class="p-3">Josh</td>
+              <td class="p-3">Lunas</td>
+              <td class="p-3">1/10/25</td>
+              <td class="p-3">
+                <a href="#" onclick="showScreen(9)" class="text-blue-600 underline">Detail</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex justify-end">
+        <button class="w-16 h-16 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showScreen(screenNumber) {
+      // Hide all screens
+      for (let i = 1; i <= 10; i++) {
+        const screen = document.getElementById('screen' + i);
+        if (screen) {
+          screen.classList.add('hidden');
+        }
+      }
+      
+      // Show selected screen
+      const targetScreen = document.getElementById('screen' + screenNumber);
+      if (targetScreen) {
+        targetScreen.classList.remove('hidden');
+      }
+    }
+
+    function confirmDelete() {
+      if (confirm('Apakah Anda yakin ingin menghapus penyewa ini?')) {
+        showScreen(3);
+      }
+    }
+
+    // Show first screen on load (Admin Dashboard)
+    showScreen(1);
+  </script>
+  <script>
+       showScreen(1);
+
+         document.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+      });
+      
+      document.addEventListener("keydown", function (e) {
+          if (e.ctrlKey && (e.key === "u" || e.key === "U")) {
+              e.preventDefault();
+          }
+          if (e.ctrlKey && e.shiftKey && (e.key === "i" || e.key === "I")) {
+              e.preventDefault();
+          }
+          if (e.ctrlKey && e.shiftKey && (e.key === "c" || e.key === "C")) {
+              e.preventDefault();
+          }
+          if (e.ctrlKey && e.shiftKey && (e.key === "j" || e.key === "J")) {
+              e.preventDefault();
+          }
+      });
+  </script>
+</body>
+</html>
