@@ -7,17 +7,6 @@ setTimeout(function(){
 document.addEventListener('DOMContentLoaded', () => {
     'use strict'
 
-    //Global Variables
-    let isPWA = true;  // Enables or disables the service worker and PWA
-    let isAJAX = true; // AJAX transitions. Requires local server or server
-    var pwaName = "Appkit"; //Local Storage Names for PWA
-    var pwaRemind = 1; //Days to re-remind to add to home
-    var pwaNoCache = false; //Requires server and HTTPS/SSL. Will clear cache with each visit
-
-    //Setting Service Worker Locations scope = folder | location = service worker js location
-    var pwaScope = "/";
-    var pwaLocation = "/_service-worker.js";
-
     //Place all your custom Javascript functions and plugin calls below this line
     function init_template(){
         //Caching Global Variables
@@ -427,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //Activate Remembered Highlight
         function selectHighlight(){
-            var rememberHighlight = localStorage.getItem(pwaName+'-Highlight');
+            var rememberHighlight = localStorage.getItem('Appkit-Highlight');
             if(rememberHighlight){
                 document.querySelectorAll('[data-change-highlight="'+rememberHighlight+'"]')[0].classList.add('highlight-active');
                 document.body.setAttribute('data-highlight', rememberHighlight);
@@ -451,9 +440,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadHighlight.href = 'styles/highlights/highlight_' + highlight +'.css';
                 document.getElementsByTagName("head")[0].appendChild(loadHighlight);
                 document.body.setAttribute('data-highlight', 'highlight-'+highlight)
-                localStorage.setItem(pwaName+'-Highlight', highlight)
+                localStorage.setItem('Appkit-Highlight', highlight)
             }))
-            var rememberHighlight = localStorage.getItem(pwaName+'-Highlight');
+            var rememberHighlight = localStorage.getItem('Appkit-Highlight');
             if(rememberHighlight){
                 var loadHighlight = document.createElement("link");
                 loadHighlight.rel = "stylesheet";
@@ -474,11 +463,11 @@ document.addEventListener('DOMContentLoaded', () => {
         gradientData.forEach(el => el.addEventListener('click',e =>{
             var gradient = el.getAttribute('data-change-background');
             document.body.setAttribute('data-gradient', 'body-'+gradient+'');
-            localStorage.setItem(pwaName+'-Gradient', gradient)
+            localStorage.setItem('Appkit-Gradient', gradient)
         }));
 
         //Set Background and Highlight
-        var pageBackground = localStorage.getItem(pwaName+'-Gradient');
+        var pageBackground = localStorage.getItem('Appkit-Gradient');
         if(pageBackground){document.body.setAttribute('data-gradient', 'body-'+pageBackground+'');}
 
 
@@ -489,13 +478,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.add('theme-dark');
                 document.body.classList.remove('theme-light', 'detect-theme');
                 for(let i = 0; i < toggleDark.length; i++){toggleDark[i].checked="checked"};
-                localStorage.setItem(pwaName+'-Theme', 'dark-mode');
+                localStorage.setItem('Appkit-Theme', 'dark-mode');
             }
             function activateLightMode(){
                 document.body.classList.add('theme-light');
                 document.body.classList.remove('theme-dark','detect-theme');
                 for(let i = 0; i < toggleDark.length; i++){toggleDark[i].checked=false};
-                localStorage.setItem(pwaName+'-Theme', 'light-mode');
+                localStorage.setItem('Appkit-Theme', 'light-mode');
             }
             function removeTransitions(){var falseTransitions = document.querySelectorAll('.btn, .header, #footer-bar, .menu-box, .menu-active'); for(let i = 0; i < falseTransitions.length; i++) {falseTransitions[i].style.transition = "all 0s ease";}}
             function addTransitions(){var trueTransitions = document.querySelectorAll('.btn, .header, #footer-bar, .menu-box, .menu-active'); for(let i = 0; i < trueTransitions.length; i++) {trueTransitions[i].style.transition = "";}}
@@ -519,8 +508,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
 
             //Set Color Based on Remembered Preference.
-            if(localStorage.getItem(pwaName+'-Theme') == "dark-mode"){for(let i = 0; i < toggleDark.length; i++){toggleDark[i].checked="checked"};document.body.className = 'theme-dark';}
-            if(localStorage.getItem(pwaName+'-Theme') == "light-mode"){document.body.className = 'theme-light';} if(document.body.className == "detect-theme"){setColorScheme();}
+            if(localStorage.getItem('Appkit-Theme') == "dark-mode"){for(let i = 0; i < toggleDark.length; i++){toggleDark[i].checked="checked"};document.body.className = 'theme-dark';}
+            if(localStorage.getItem('Appkit-Theme') == "light-mode"){document.body.className = 'theme-light';} if(document.body.className == "detect-theme"){setColorScheme();}
 
             //Detect Dark/Light Mode
             const darkModeDetect = document.querySelectorAll('.detect-dark-mode');
@@ -530,8 +519,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(function(){setColorScheme();},50)
             }))
         }
-        if(localStorage.getItem(pwaName+'-Theme') == "dark-mode"){document.body.className = 'theme-dark';}
-        if(localStorage.getItem(pwaName+'-Theme') == "light-mode"){document.body.className = 'theme-light';}
+        if(localStorage.getItem('Appkit-Theme') == "dark-mode"){document.body.className = 'theme-dark';}
+        if(localStorage.getItem('Appkit-Theme') == "light-mode"){document.body.className = 'theme-light';}
 
 
         //Accordion Rotate
@@ -635,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var checkVisited = document.querySelectorAll('.check-visited');
             if(checkVisited.length){
             function check_visited_links(){
-                var visited_links = JSON.parse(localStorage.getItem(pwaName+'_Visited_Links')) || [];
+                var visited_links = JSON.parse(localStorage.getItem('Appkit_Visited_Links')) || [];
                 var links = document.querySelectorAll('.check-visited a');
                 for (let i = 0; i < links.length; i++) {
                     var that = links[i];
@@ -643,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         var clicked_url = this.href;
                         if (visited_links.indexOf(clicked_url)==-1) {
                             visited_links.push(clicked_url);
-                            localStorage.setItem(pwaName+'_Visited_Links', JSON.stringify(visited_links));
+                            localStorage.setItem('Appkit_Visited_Links', JSON.stringify(visited_links));
                         }
                     })
                     if (visited_links.indexOf(that.href)!== -1) {
@@ -780,18 +769,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        //Tooltips
-        /*Deprecated feature for Mobiles. Requires popper.min.js v2 to work
-        var tooltips = document.querySelectorAll('[data-bs-tooltip]');
-        if(tooltips.length){
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-              return new bootstrap.Tooltip(tooltipTriggerEl)
-            })
-        }
-        */
-
-
         //Dropdown
         var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'))
         if(dropdownElementList.length){
@@ -814,7 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ["Wednesday", 9.00, 17.00],
                 ["Thursday", 9.00, 17.00],
                 ["Friday", 9.00, 17.00],
-                ["Saturday", 9.00, 13.00] // we are closed, sorry!
+                ["Saturday", 9.00, 13.00]
             ];
             var day = weekdays[n];
             var openClass = document.querySelectorAll('.show-business-opened');
@@ -919,19 +896,19 @@ document.addEventListener('DOMContentLoaded', () => {
             var neverVisited = document.querySelectorAll('.never-visited')[0];
             var beforeVisited = document.querySelectorAll('.before-visited')[0];
             var visitBeforeTime = document.querySelectorAll('.visit-before-time')[0];
-            var lastVisitValue = localStorage.getItem(pwaName+'-Last-Visited');
+            var lastVisitValue = localStorage.getItem('Appkit-Last-Visited');
             var d = new Date();
             var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
             var strTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
             if(!lastVisitValue){
                 neverVisited.style.display="block";
                 beforeVisited.style.display="none";
-                localStorage.setItem(pwaName+'-Last-Visited', 'Your last visit was ' + strDate +' at '+ strTime)
+                localStorage.setItem('Appkit-Last-Visited', 'Your last visit was ' + strDate +' at '+ strTime)
             } else {
                 neverVisited.style.display="none"
                 beforeVisited.style.display="block"
                 visitBeforeTime.append(lastVisitValue)
-                localStorage.setItem(pwaName+'-Last-Visited', 'Your last visit was ' + strDate +' at '+ strTime)
+                localStorage.setItem('Appkit-Last-Visited', 'Your last visit was ' + strDate +' at '+ strTime)
             }
         }
 
@@ -989,13 +966,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     qr_btn.innerHTML = "Generate New Button"
                 })
             }
-        }
-
-        if (window.location.protocol === "file:"){
-            var linksLocal = document.querySelectorAll('a');
-            linksLocal.forEach(el => el.addEventListener('mouseover', event => {
-               // console.log("You are seeing these errors because your file is on your local computer. For real life simulations please use a Live Server or a Local Server such as AMPPS or WAMPP or simulate a  Live Preview using a Code Editor like http://brackets.io (it's 100% free) - PWA functions and AJAX Page Transitions will only work in these scenarios.");
-            }));
         }
 
         //Search Page
@@ -1345,132 +1315,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('online',  updateOnlineStatus);
         window.addEventListener('offline', updateOfflineStatus);
 
-        //iOS Badge
-        const iOSBadge = document.querySelectorAll('.simulate-iphone-badge');
-        iOSBadge.forEach(el => el.addEventListener('click',e =>{
-            document.getElementsByClassName('add-to-home')[0].classList.add('add-to-home-visible', 'add-to-home-ios');
-            document.getElementsByClassName('add-to-home')[0].classList.remove('add-to-home-android');
-        }));
-
-        //Android Badge
-        const AndroidBadge = document.querySelectorAll('.simulate-android-badge');
-        AndroidBadge.forEach(el => el.addEventListener('click',e =>{
-            document.getElementsByClassName('add-to-home')[0].classList.add('add-to-home-visible', 'add-to-home-android');
-            document.getElementsByClassName('add-to-home')[0].classList.remove('add-to-home-ios');
-        }));
-
-        //Remove Add to Home Badge
-        const addToHomeBadgeClose = document.querySelectorAll('.add-to-home');
-        addToHomeBadgeClose.forEach(el => el.addEventListener('click',e =>{
-            document.getElementsByClassName('add-to-home')[0].classList.remove('add-to-home-visible');
-        }));
-
-
-        //PWA Settings
-        if(isPWA === true){
-            var checkPWA = document.getElementsByTagName('html')[0];
-            if(!checkPWA.classList.contains('isPWA')){
-                if ('serviceWorker' in navigator) {
-                  window.addEventListener('load', function() {
-                    navigator.serviceWorker.register(pwaLocation, {scope: pwaScope}).then(function(registration){registration.update();})
-                  });
-                }
-
-                //Setting Timeout Before Prompt Shows Again if Dismissed
-                var hours = pwaRemind * 24; // Reset when storage is more than 24hours
-                var now = Date.now();
-                var setupTime = localStorage.getItem(pwaName+'-PWA-Timeout-Value');
-                if (setupTime == null) {
-                    localStorage.setItem(pwaName+'-PWA-Timeout-Value', now);
-                } else if (now - setupTime > hours*60*60*1000) {
-                    localStorage.removeItem(pwaName+'-PWA-Prompt')
-                    localStorage.setItem(pwaName+'-PWA-Timeout-Value', now);
-                }
-
-
-                const pwaClose = document.querySelectorAll('.pwa-dismiss');
-                pwaClose.forEach(el => el.addEventListener('click',e =>{
-                    const pwaWindows = document.querySelectorAll('#menu-install-pwa-android, #menu-install-pwa-ios');
-                    for(let i=0; i < pwaWindows.length; i++){pwaWindows[i].classList.remove('menu-active');}
-                    localStorage.setItem(pwaName+'-PWA-Timeout-Value', now);
-                    localStorage.setItem(pwaName+'-PWA-Prompt', 'install-rejected');
-                    console.log('PWA Install Rejected. Will Show Again in '+ (pwaRemind)+' Days')
-                }));
-
-                //Trigger Install Prompt for Android
-                const pwaWindows = document.querySelectorAll('#menu-install-pwa-android, #menu-install-pwa-ios');
-                if(pwaWindows.length){
-                    if (isMobile.Android()) {
-                        if (localStorage.getItem(pwaName+'-PWA-Prompt') != "install-rejected") {
-                            function showInstallPrompt() {
-                                setTimeout(function(){
-                                    if (!window.matchMedia('(display-mode: fullscreen)').matches) {
-                                        console.log('Triggering PWA Window for Android')
-                                        document.getElementById('menu-install-pwa-android').classList.add('menu-active');
-                                        document.querySelectorAll('.menu-hider')[0].classList.add('menu-active');
-                                    }
-                                },3500);
-                            }
-                            var deferredPrompt;
-                            window.addEventListener('beforeinstallprompt', (e) => {
-                                e.preventDefault();
-                                deferredPrompt = e;
-                                showInstallPrompt();
-                            });
-                        }
-                        const pwaInstall = document.querySelectorAll('.pwa-install');
-                        pwaInstall.forEach(el => el.addEventListener('click', e => {
-                            deferredPrompt.prompt();
-                            deferredPrompt.userChoice
-                                .then((choiceResult) => {
-                                    if (choiceResult.outcome === 'accepted') {
-                                        console.log('Added');
-                                    } else {
-                                        localStorage.setItem(pwaName+'-PWA-Timeout-Value', now);
-                                        localStorage.setItem(pwaName+'-PWA-Prompt', 'install-rejected');
-                                        setTimeout(function(){
-                                            if (!window.matchMedia('(display-mode: fullscreen)').matches) {
-                                                document.getElementById('menu-install-pwa-android').classList.remove('menu-active');
-                                                document.querySelectorAll('.menu-hider')[0].classList.remove('menu-active');
-                                            }
-                                        },50);
-                                    }
-                                    deferredPrompt = null;
-                                });
-                        }));
-                        window.addEventListener('appinstalled', (evt) => {
-                            document.getElementById('menu-install-pwa-android').classList.remove('menu-active');
-                            document.querySelectorAll('.menu-hider')[0].classList.remove('menu-active');
-                        });
-                    }
-                    //Trigger Install Guide iOS
-                    if (isMobile.iOS()) {
-                        if (localStorage.getItem(pwaName+'-PWA-Prompt') != "install-rejected") {
-                            setTimeout(function(){
-                                if (!window.matchMedia('(display-mode: fullscreen)').matches) {
-                                    console.log('Triggering PWA Window for iOS');
-                                    document.getElementById('menu-install-pwa-ios').classList.add('menu-active');
-                                    document.querySelectorAll('.menu-hider')[0].classList.add('menu-active');
-                                }
-                            },3500);
-                        }
-                    }
-                }
-            }
-            checkPWA.setAttribute('class','isPWA');
-        }
-
-        //End of isPWA
-        // if(pwaNoCache === true){
-        //     caches.delete('workbox-runtime').then(function() {});
-        //     sessionStorage.clear()
-        //     caches.keys().then(cacheNames => {
-        //       cacheNames.forEach(cacheName => {
-        //         caches.delete(cacheName);
-        //       });
-        //     });
-        // }
-
         //Lazy Loading
         var lazyLoad = new LazyLoad();
 
@@ -1482,11 +1326,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let plugins = [
           {
-            id: 'uniqueID', // to detect if loaded and unload if needed
-            plug: 'pluginName/plugin.js', // the main plugin javascript file
-            call: 'pluginName/pluginName-call.js', // the plugin call functions
-            style: 'pluginName/pluginName-style.css', // the plugin stylesheet
-            trigger: '.pluginTriggerClass' // the trigger that will activate the loading and initializing of the plugin
+            id: 'uniqueID',
+            plug: 'pluginName/plugin.js',
+            call: 'pluginName/pluginName-call.js',
+            style: 'pluginName/pluginName-style.css',
+            trigger: '.pluginTriggerClass'
           },
           {
             id: 'chart',
@@ -1597,27 +1441,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    //Fix Scroll for AJAX pages.
-    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
-
     //End of Init Template
-    if(isAJAX === true){
-        if(window.location.protocol !== "file:"){
-            const options = {
-                containers: ["#page"],
-                cache:false,
-                animateHistoryBrowsing: false,
-                plugins: [
-                    new SwupPreloadPlugin()
-                ],
-                linkSelector:'a:not(.external-link):not(.default-link):not([href^="https"]):not([href^="http"]):not([data-gallery])'
-            };
-            const swup = new Swup(options);
-            document.addEventListener('swup:pageView',(e) => { init_template(); })
-        }
-    }
-
     init_template();
 });
-
