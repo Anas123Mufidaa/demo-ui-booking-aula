@@ -21,10 +21,9 @@
         top: -55px;
         left: 0;
         width: 100%;
-        height: 400px;
+        height: 310px;
         background: #155DFC;
-        z-index: 1;
-
+        z-index: -99999;
         clip-path: ellipse(100% 70% at 50% 0%);
     }
 
@@ -73,19 +72,26 @@
             <div>
                 <div class="card-wrapper">
                     <div class="card-shape"></div>
-                    <div class="card card-style bg-33 mt-5" data-card-height="230" style="height: 250px;">
-                        <div class="card-center text-start ps-3 mt-5">
+                        <div class="text-start justify-content-center align-items-center ps-3 mt-3" style="z-index: 9999;">
                             <img src="https://sigaru.id/assets/img/logo/logoUMP.png" width="55">
-                            <h1 class="color-white font-600 font-20 mt-3">Masuk</h1>
+                            <h1 class="color-white font-600 font-20 mt-2">Daftar</h1>
                             <p class="color-white">
-                                Masukkan akun Anda di bawah ini.
+                                Daftar akun Anda di bawah ini.
                             </p>
                         </div>
-                        <div class="card-overlay bg-gradient"></div>
                     </div>
                 </div>
 
-                <div class="content">
+                <div class="content mt-5">
+                    
+                    <div class="input-style has-borders has-icon validate-field mb-4">
+                        <i class="fa fa-user"></i>
+                        <input type="text" class="form-control validate-text" id="form4" placeholder="Nama">
+                        <label for="form4" class="color-highlight">Nama</label>
+                        <!-- <i class="fa fa-times disabled invalid color-red-dark"></i>
+                        <i class="fa fa-check disabled valid color-green-dark"></i>
+                        <em>(required)</em> -->
+                    </div> 
                     
                     <div class="input-style has-borders has-icon validate-field mb-4">
                         <i class="fa fa-phone"></i>
@@ -103,20 +109,23 @@
                         <!-- <i class="fa fa-times disabled invalid color-red-dark"></i>
                         <i class="fa fa-check disabled valid color-green-dark"></i>
                         <em>(required)</em> -->
-                    </div>
-                    <div class="form-check icon-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="check1">
-                        <label class="form-check-label" for="check1">Ingat Saya</label>
-                        <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
-                        <i class="icon-check-2 fa fa-check-square font-16 color-highlight"></i>
+                    </div>     
+                    
+                    <div class="input-style has-borders has-icon validate-field mb-4">
+                        <i class="fa fa-lock"></i>
+                        <input type="password" class="form-control validate-text" id="form3" placeholder="Konfirmasi Password">
+                        <label for="form3" class="color-highlight">Konfirmasi Password</label>
+                        <!-- <i class="fa fa-times disabled invalid color-red-dark"></i>
+                        <i class="fa fa-check disabled valid color-green-dark"></i>
+                        <em>(required)</em> -->
                     </div>
 
                     <a href="#" class="btn btn-3d btn-m btn-full mb-3 rounded-xl text-uppercase font-700 shadow-s border-blue-dark bg-blue-light">Masuk</a>
 
                     <div class="pt-3 mb-3">
                         <div class="text-center font-13">
-                            Belum punya akun? 
-                            <a href="register.html" class="color-highlight font-600">Daftar disini</a>
+                            Sudah punya akun? 
+                            <a href="login.html" class="color-highlight font-600">Masuk disini</a>
                         </div>
                     </div>
                 </div>

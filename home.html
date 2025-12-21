@@ -12,7 +12,63 @@
 <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
 <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
 <style>
-  
+    .hero-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-shape {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 290px;
+        background: #155DFC;
+        z-index: 1;
+        clip-path: ellipse(100% 80% at 50% 0%);
+    }
+
+    .hero-shape::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background-image:
+            repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.25) 0,
+                rgba(255, 255, 255, 0.25) 1px,
+                transparent 1px,
+                transparent 20px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.25) 0,
+                rgba(255, 255, 255, 0.25) 1px,
+                transparent 1px,
+                transparent 20px
+            );
+
+        background-size: 40px 40px;
+        background-position: center center; 
+        opacity: 0.35;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-content, p {
+        color: #ffffffbb;
+    }
+
+    .hero-title {
+        font-size: 35px;
+        line-height: 45px;
+        color: #fff;
+        text-shadow: 2px 2px 4px #6b95f0;
+    }
 </style>
 </head>
     
@@ -23,16 +79,16 @@
     
 <div id="page">
     
-    <div class="header header-fixed header-logo-left bg-header-gradient">
+    <!-- <div class="header header-fixed header-logo-left bg-header-gradient">
         <a href="index.html" class="header-title color-white">
-            <!-- <img src="https://sigaru.id/assets/img/logo/logoUMP.png" alt="" width="30" height="30" srcset=""> -->
+            <img src="https://sigaru.id/assets/img/logo/logoUMP.png" alt="" width="30" height="30" srcset="">
             App Booking
         </a>
-        <!-- <a href="#" data-menu="menu-main" class="header-icon header-icon-1 color-white"><i class="fas fa-bars"></i></a>
+        <a href="#" data-menu="menu-main" class="header-icon header-icon-1 color-white"><i class="fas fa-bars"></i></a>
         <a href="#" data-toggle-theme class="header-icon header-icon-3 show-on-theme-dark"><i class="fas fa-sun"></i></a>
         <a href="#" data-toggle-theme class="header-icon header-icon-3 show-on-theme-light"><i class="fas fa-moon"></i></a>
-        <a href="#" data-menu="menu-share" class="header-icon header-icon-2"><i class="fas fa-share-alt"></i></a> -->
-    </div>
+        <a href="#" data-menu="menu-share" class="header-icon header-icon-2"><i class="fas fa-share-alt"></i></a>
+    </div> -->
     
     <!-- <div id="footer-bar" class="footer-bar-6">
         <a href="index-components.html"><i class="fa fa-layer-group"></i><span>Features</span></a>
@@ -49,20 +105,30 @@
         <a href="#" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-dark" data-toggle-theme><i class="fa fa-lightbulb color-yellow-dark"></i></a>
         <a href="#" class="page-title-icon shadow-xl bg-theme color-theme" data-menu="menu-main"><i class="fa fa-bars"></i></a>
     </div> -->
-    <div class="page-title-clear"></div>
+    <!-- <div class="page-title-clear"></div> -->
 
     <!-- Page content -->
     <div class="page-content d-flex flex-column justify-content-center align-items-center" style="min-height: calc(100vh - 200px); padding-bottom: 100px;">
         <div class="w-100">
-            <h1 class="text-center h-1 " style="font-size: 25px; line-height: 40px;color: #155DFC;"
-            >Gedung Pernikahan Eksklusif</h1>
-            <p class="pb-3 text-center">Pernikahan impian dimulai dari tempat yang sempurna.</p>
+            <div class="hero-wrapper position-relative">
+                <!-- SHAPE BACKGROUND -->
+                <div class="hero-shape"></div>
+                <div class="hero-content text-center text-white py-5">
+                    <h1 class="h-1 font-900 hero-title">
+                        Gedung Pernikahan <br> Eksklusif
+                    </h1>
+                    <p>
+                        Pernikahan impian dimulai dari <br> tempat yang sempurna.
+                    </p>
+                </div>
+            </div>
+
 
             <div class="splide single-slider slider-arrows" id="single-slider-3">
                 <div class="splide__track">
                     <div class="splide__list">
                         <div class="splide__slide">
-                            <div data-card-height="350" class="card mx-3 bg-31 rounded-m shadow-l">
+                            <div data-card-height="320" class="card mx-3 bg-31 rounded-m shadow-l">
                                 <div class="card-bottom text-center mb-2">
                                     <h2 class="color-white text-uppercase font-900 mb-0">Grand Auditorium</h2>
                                     <p class="under-heading color-white">Kapasitas luas dengan fasilitas modern terbaik.</p>
@@ -71,7 +137,7 @@
                             </div>
                         </div>
                         <div class="splide__slide">
-                            <div data-card-height="350" class="card mx-3 bg-32 rounded-m shadow-l">
+                            <div data-card-height="320" class="card mx-3 bg-32 rounded-m shadow-l">
                                 <div class="card-bottom text-center mb-2">
                                     <h2 class="color-white text-uppercase font-900 mb-0">Strategic Location</h2>
                                     <p class="under-heading color-white">Akses mudah di pusat kota bagi undangan.</p>
@@ -80,7 +146,7 @@
                             </div>
                         </div>
                         <div class="splide__slide">
-                            <div data-card-height="350" class="card mx-3 bg-33 rounded-m shadow-l">
+                            <div data-card-height="320" class="card mx-3 bg-33 rounded-m shadow-l">
                                 <div class="card-bottom text-center mb-2">
                                     <h2 class="color-white text-uppercase font-900 mb-0">Timeless Memories</h2>
                                     <p class="under-heading color-white">Wujudkan pesta pernikahan impian yang abadi.</p>
