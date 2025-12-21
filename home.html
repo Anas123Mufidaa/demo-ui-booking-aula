@@ -176,5 +176,21 @@
 </div>
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
+<script>
+    document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey && (e.key === "u" || e.key === "U")) {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === "i" || e.key === "I")) {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === "c" || e.key === "C")) {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === "j" || e.key === "J")) {
+            e.preventDefault();
+        }
+    });
+</script>
 </body>
 </html>
