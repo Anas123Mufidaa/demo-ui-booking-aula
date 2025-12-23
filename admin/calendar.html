@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>App Booking - UM Pontianak</title>
+<link rel="icon" href="/images/logoUMP.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../styles/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../fonts/css/fontawesome-all.min.css">    
+<link rel="apple-touch-icon" sizes="180x180" href="../app/icons/icon-192x192.png">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<style>
+    #footer-bar a {
+        display: none !important;
+    }
+
+    #footer-bar a.circle-nav {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .fab-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0,0,0,.25);
+        z-index: 1050;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fab-plus {
+        color:#ffffff;
+        font-size: 50px;
+        line-height: 1;
+    }
+
+</style>
+</head>
+    
+<body class="">
+    
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+    
+<div id="page">
+    
+   <!-- <div class="page-content-bg gradient-menu"><div></div></div> -->
+    <div class="page-content">
+        <div class="page-title ">
+            <a href="/admin/index.html" class="page-title-icon shadow-xl bg-theme color-dark me-0 ms-3"><i class="fa fa-arrow-left font-20"></i></a>
+            <h1>Kalendar</h1>
+        </div>
+
+        <div class="card card-style">
+        <div class="cal-header">
+            <h4 class="cal-title text-center text-uppercase font-800 color-white" style="background: #1447E6;" id="calendarMonth">December 2024</h4>
+            <h6 class="cal-title-left color-white" id="prevMonth"><i class="fa fa-chevron-left"></i></h6>
+            <h6 class="cal-title-right color-white" id="nextMonth"><i class="fa fa-chevron-right"></i></h6>
+        </div>
+        <div class="clearfix"></div>
+        <div class="cal-days bg-highlight-light opacity-80 pt-2 pb-2">
+            <a href="#">MON</a>
+            <a href="#">TUE</a>
+            <a href="#">WED</a>
+            <a href="#">THU</a>
+            <a href="#">FRI</a>
+            <a href="#">SAT</a>
+            <a href="#">SUN</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="divider mb-1"></div>
+        <div class="cal-dates cal-dates-border" id="calendarDates">
+            <!-- Calendar dates will be generated here -->
+        </div>
+    </div>
+    <!-- Page content ends here-->
+    <a href="calendar-add.html" class="gradient-highlight fab-btn">
+        <span class="fab-plus">+</span>
+    </a>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="../scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="../scripts/custom.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+$('#example').DataTable({
+    searching: false,   // hide search box
+    paging: false,      // hide pagination
+    info: false         // hide "Showing 1 to X of Y entries"
+});
+
+
+// Calendar Configuration
+const calendarConfig = {
+    currentMonth: new Date().getMonth(),
+    currentYear: new Date().getFullYear(),
+    selectedDate: null,
+    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 
+                 'July', 'August', 'September', 'October', 'November', 'December'],
+    // Event dates configuration
+    events: [
+        {
+            date: '2025-12-14',
+            name: 'Pernikahan Budi & Siti',
+            description: '07:00 – 19:00 WIB'
+        },
+        {
+            date: '2025-12-21',
+            name: 'Resepsi Keluarga Ahmad',
+            description: '08:00 – 18:00 WIB'
+        },
+        {
+            date: '2025-12-28',
+            name: 'Wedding Party Rina & Doni',
+            description: '09:00 – 21:00 WIB'
+        },
+        {
+            date: '2026-01-04',
+            name: 'Pernikahan Andi & Dewi',
+            description: '07:00 – 20:00 WIB'
+        }
+    ]
+};
+
+// Check if date has event
+function hasEvent(day, month, year) {
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    return calendarConfig.events.find(event => event.date === dateStr);
+}
+
+// Get event by date
+function getEventByDate(day, month, year) {
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    return calendarConfig.events.find(event => event.date === dateStr);
+}
+
+// Generate Calendar
+function generateCalendar(month, year) {
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const minDate = new Date(today);
+    
+    // Adjust first day (0=Sunday, 1=Monday, etc.) to match MON-SUN layout
+    const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1;
+    
+    let html = '';
+    
+    // Previous month days
+    const prevMonthDays = new Date(year, month, 0).getDate();
+    for (let i = adjustedFirstDay - 1; i >= 0; i--) {
+        html += `<a href="#" class="cal-disabled">${prevMonthDays - i}</a>`;
+    }
+    
+    // Current month days
+    for (let day = 1; day <= daysInMonth; day++) {
+        const currentDate = new Date(year, month, day);
+        currentDate.setHours(0, 0, 0, 0);
+        const dayOfWeek = currentDate.getDay();
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6; // Sunday or Saturday
+        const isPast = currentDate < minDate;
+        const eventData = hasEvent(day, month, year);
+        
+        let classes = '';
+        let dataMenu = '';
+        let icon = '';
+        
+        // Check if date has event and is in the future
+        if (eventData && !isPast) {
+            classes = 'cal-selected';
+            dataMenu = 'data-menu="menu-events"';
+            icon = '<i class="fa fa-circle color-highlight"></i>';
+            html += `<a href="#" class="${classes}" ${dataMenu} onclick="selectDate(${day}, ${month}, ${year}, event); return false;" style="color: #180501 !important;position: relative;">${icon}<span>${day}</span></a>`;
+            continue;
+        // } else if (isPast || !isWeekend) {
+        //     // Disabled dates: past dates OR weekdays
+        //     classes = 'cal-disabled';
+        //     dataMenu = 'data-menu="menu-disabled"';
+        //     html += `<a href="#" class="${classes}" ${dataMenu} onclick="showDisabledInfo(event); return false;"><span>${day}</span></a>`;
+        //     continue;
+        } 
+        else {
+            // Available: future weekend dates (not booked)
+            classes = 'cal-available';
+        }
+        
+        // Check if this is the selected date
+        if (calendarConfig.selectedDate && 
+            calendarConfig.selectedDate.getDate() === day &&
+            calendarConfig.selectedDate.getMonth() === month &&
+            calendarConfig.selectedDate.getFullYear() === year &&
+            !eventData) {
+            classes += ' cal-selected';
+            icon = '<i class="fa fa-circle color-green-dark"></i>';
+        }
+        
+        html += `<a href="#" class="${classes}" ${dataMenu} onclick="selectDate(${day}, ${month}, ${year}, event); return false;" style="position: relative;">${icon}<span>${day}</span></a>`;
+    }
+    
+    // Next month days to fill the grid
+    const totalCells = adjustedFirstDay + daysInMonth;
+    const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+    for (let i = 1; i <= remainingCells; i++) {
+        html += `<a href="#" class="cal-disabled">${i}</a>`;
+    }
+    
+    html += '<div class="clearfix"></div>';
+    
+    document.getElementById('calendarDates').innerHTML = html;
+    document.getElementById('calendarMonth').textContent = 
+        `${calendarConfig.monthNames[month]} ${year}`;
+}
+
+// Show disabled info
+function showDisabledInfo(e) {
+    if (e) e.preventDefault();
+    
+    // Use template's menu system
+    const menu = document.getElementById('menu-disabled');
+    if (menu) {
+        menu.classList.add('menu-active');
+        
+        // Add overlay
+        let menuHider = document.querySelector('.menu-hider');
+        if (!menuHider) {
+            menuHider = document.createElement('div');
+            menuHider.className = 'menu-hider';
+            document.body.appendChild(menuHider);
+        }
+        menuHider.classList.add('menu-active');
+    }
+    
+    return false;
+}
+
+// Select Date
+function selectDate(day, month, year, event) {
+    if (event) event.preventDefault();
+    
+    const selectedDate = new Date(year, month, day);
+    selectedDate.setHours(0, 0, 0, 0);
+    const dayOfWeek = selectedDate.getDay();
+    const eventData = getEventByDate(day, month, year);
+    
+    // Format date for display
+    const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const formattedDate = `${dayNames[dayOfWeek]}, ${day} ${calendarConfig.monthNames[month]} ${year}`;
+    
+    
+    // If date has event, show event info
+    const menu = document.getElementById('menu-events');
+    if (eventData) {
+
+        // isi judul tanggal
+        document.getElementById('eventDateText').textContent = formattedDate;
+
+        // isi konten event
+        document.getElementById('eventContent').innerHTML = `
+            <a href="#" class="d-flex mb-3">
+                <div class="align-self-center">
+                    <img src="images/list-event.png" width="60" class="rounded-sm me-3">
+                </div>
+                <div class="align-self-center">
+                    <h5>${eventData.name}</h5>
+                    <p class="mb-0 mt-n1 font-10">
+                        <i class="fa fa-clock color-blue-dark pe-1"></i>
+                        ${eventData.description}
+                    </p>
+                </div>
+            </a>
+            <a href="#" class="btn btn-full btn-m text-uppercase font-700 border-0 mt-4 mx-1 rounded-sm gradient-blue close-menu">
+                Tutup
+            </a>
+        `;
+
+        menu.classList.add('menu-active');
+
+        // overlay 
+        let menuHider = document.querySelector('.menu-hider');
+        if (!menuHider) {
+            menuHider = document.createElement('div');
+            menuHider.className = 'menu-hider';
+            document.body.appendChild(menuHider);
+        }
+        menuHider.classList.add('menu-active');
+
+        return false;
+    }
+    
+    // Only allow weekend selection
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        return false;
+    }
+    
+    // Check if date is not in the past
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (selectedDate < today) {
+        return false;
+    }
+    
+    calendarConfig.selectedDate = selectedDate;
+    
+    // Show selection info
+    // document.getElementById('menuEventType').textContent = 'Tanggal Terpilih';
+    // document.getElementById('menuEventContent').innerHTML = `
+    //     <div class="alert alert-success">
+    //         <h5><i class="fa fa-check-circle me-2"></i>Tanggal Tersedia</h5>
+    //         <p class="mb-0">Tanggal ini tersedia untuk reservasi gedung pernikahan.</p>
+    //     </div>
+    //     <div class="alert alert-info">
+    //         <h5>Informasi Reservasi</h5>
+    //         <p class="mb-0">Reservasi hanya tersedia di hari Sabtu dan Minggu untuk memastikan pelayanan terbaik.</p>
+    //     </div>
+    //     <a href="#" class="btn btn-full btn-m text-uppercase font-700 border-0 mt-4 mx-1 rounded-sm gradient-blue close-menu">Pilih Tanggal Ini</a>
+    // `;
+    
+    // Regenerate calendar to show selection
+    generateCalendar(month, year);
+    
+    return false;
+}
+
+function openMenu(id) {
+    const menu = document.getElementById(id);
+    if (!menu) return;
+
+    menu.classList.add('menu-active');
+
+    let hider = document.querySelector('.menu-hider');
+    if (!hider) {
+        hider = document.createElement('div');
+        hider.className = 'menu-hider';
+        document.body.appendChild(hider);
+    }
+    hider.classList.add('menu-active');
+}
+
+
+// Previous Month
+document.getElementById('prevMonth').addEventListener('click', function(e) {
+    e.preventDefault();
+    calendarConfig.currentMonth--;
+    if (calendarConfig.currentMonth < 0) {
+        calendarConfig.currentMonth = 11;
+        calendarConfig.currentYear--;
+    }
+    generateCalendar(calendarConfig.currentMonth, calendarConfig.currentYear);
+});
+
+// Next Month
+document.getElementById('nextMonth').addEventListener('click', function(e) {
+    e.preventDefault();
+    calendarConfig.currentMonth++;
+    if (calendarConfig.currentMonth > 11) {
+        calendarConfig.currentMonth = 0;
+        calendarConfig.currentYear++;
+    }
+    generateCalendar(calendarConfig.currentMonth, calendarConfig.currentYear);
+});
+
+// Next Button Validation
+// document.getElementById('nextButton').addEventListener('click', function(e) {
+//     if (!calendarConfig.selectedDate) {
+//         e.preventDefault();
+//         alert('Silakan pilih tanggal terlebih dahulu!');
+//         return false;
+//     }
+// });
+
+// Initialize Calendar
+document.addEventListener('DOMContentLoaded', function() {
+    generateCalendar(calendarConfig.currentMonth, calendarConfig.currentYear);
+});
+</script>
+</body>
+</html>

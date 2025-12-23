@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>App Booking - UM Pontianak</title>
+<link rel="icon" href="/images/logoUMP.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../styles/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../fonts/css/fontawesome-all.min.css">    
+<link rel="apple-touch-icon" sizes="180x180" href="../app/icons/icon-192x192.png">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<style>
+    #footer-bar a {
+        display: none !important;
+    }
+
+    #footer-bar a.circle-nav {
+        display: flex !important;
+        flex-direction: column;
+    }
+</style>
+</head>
+    
+<body class="">
+    
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+    
+<div id="page">
+    
+   <!-- <div class="page-content-bg gradient-menu"><div></div></div> -->
+    <div class="page-content">
+        <div class="page-title ">
+            <a href="/admin/index.html" class="page-title-icon shadow-xl bg-theme color-dark me-0 ms-3"><i class="fa fa-arrow-left font-20"></i></a>
+            <h1>Reservasi</h1>
+        </div>
+
+        <div class="card card-style">
+            <div class="content my-3">
+                <h2><span class="font-600 color-blue-light mb-n1 inline pe-2"><i class="fa fa-calendar"></i></span> January 2026</h2>
+            </div>
+        </div>
+                
+        <div class="card card-style bg-red-light rounded-m p-3 mb-3">
+            <h1 class="font-30 color-white">1</h1>
+            <h4 class="mt-n2 mb-0 pt-2 color-white">Belum Bayar</h4>
+        </div>
+         <div class="row mb-0">
+            <div class="col pe-2">
+                <div class="card card-style bg-yellow-light rounded-m me-0 p-3 mb-3">
+                    <h1 class="font-30 color-white">1</h1>
+                    <h4 class="mt-n2 mb-0 pt-2 color-white">Sudah Dp</h4>
+                </div>
+            </div>
+            <div class="col pe-2">
+                <div class="card card-style bg-green-light rounded-m ms-0 p-3 mb-3">
+                    <h1 class="font-30 color-white">2</h1>
+                    <h4 class="mt-n2 mb-0 pt-2 color-white">Lunas</h4>
+                </div>
+            </div>
+        </div>
+         <div class="px-3 mt-3">
+            <table id="example" class="table table-borderless text-center rounded-sm shadow-l" style="overflow: hidden;">
+                    <thead>
+                        <tr class="bg-blue-dark">
+                            <th scope="col" class="color-white py-3 font-14">Reservasi</th>
+                            <th scope="col" class="color-white py-3 font-14">Acara</th>
+                            <th scope="col" class="color-white py-3 font-14">Status</th>
+                            <th scope="col" class="color-white py-3 font-14">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>10 Dec 2025</th>
+                            <td>10 Jan 2026</td>
+                            <td>Belum Bayar</td>
+                            <td><a href="edit-reservation.html" class="bg-theme color-dark">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <th>17 Dec 2025</th>
+                            <td>17 Jan 2026</td>
+                            <td>Sudah DP</td>
+                            <td><a href="edit-reservation.html" class="bg-theme color-dark">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <th>24 Dec 2025</th>
+                            <td>24 Jan 2026</td>
+                            <td>Lunas</td>
+                            <td><a href="edit-reservation.html" class="bg-theme color-dark">Edit</a></td>
+                        </tr>                        
+                        <tr>
+                            <th>31 Dec 2025</th>
+                            <td>31 Jan 2026</td>
+                            <td>Lunas</td>
+                            <td><a  href="edit-reservation.html"class="bg-theme color-dark">Edit</a></td>
+                        </tr>
+                    </tbody>
+            </table>
+         </div>       
+        </nav>
+    </div>
+    <!-- Page content ends here-->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="../scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="../scripts/custom.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+$('#example').DataTable({
+    searching: false,   // hide search box
+    paging: false,      // hide pagination
+    info: false         // hide "Showing 1 to X of Y entries"
+});
+
+</script>
+</body>
+</html>
